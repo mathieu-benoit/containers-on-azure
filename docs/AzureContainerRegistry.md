@@ -9,7 +9,6 @@ az group create \
     -n <your-acr-rg>
 
 #Create your ACR
-#Duration: TODO
 az acr create \
     --admin-enabled \
     --sku Basic \
@@ -29,9 +28,9 @@ az acr credential show \
     --query "passwords[0].value"
 ```
 
-## Azure Pricing
+## Notes
 
-TODO
+- ACR is a great alternative to DockerHub for your private and enterprise containers registries
 
 ## Resources
 

@@ -9,7 +9,6 @@ az group create \
     -n <your-aci-rg>
 
 #Create your ACI from DockerHub
-#Duration: TODO
 az container create \
     -g <your-aci-rg> \
     --name <your-aci> \
@@ -19,7 +18,6 @@ az container create \
     -e CONTAINER_HOST=ACI
 
 #Create your ACI from ACR
-#Duration: TODO
 az container create \
     -g <your-aci-rg> \
     --name <your-aci> \
