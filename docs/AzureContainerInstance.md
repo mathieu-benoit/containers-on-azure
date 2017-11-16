@@ -40,7 +40,7 @@ az container show \
     --name <your-aci> \
     --resource-group <your-aci-rg>
 
-#Get the logs of you ACI
+#Get the logs of your ACI
 az container logs \
     --name <your-aci> \
     --resource-group <your-aci-rg>
