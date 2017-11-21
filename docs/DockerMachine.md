@@ -21,6 +21,7 @@ docker-machine create \
 eval $(docker-machine env docker-machine --shell bash)
 
 #If you need to deallocate/stop this VM to save some money when you don't need it
+#/!\ Important remark: when you will start back this VM, its IP address will be regenerated (unless you have static IP address for your VM). Furthermore, you will need to run the "docker-machine regenerate-certs" command, see below.
 az vm deallocate \
     --name docker-machine \
     --resource-group docker-machine-rg
@@ -29,6 +30,10 @@ az vm deallocate \
 az vm start \
     --name docker-machine-mabenoit \
     --resource-group docker-machine-mabenoit-rg
+
+#If you need to regenerate your docker-machine certs. 
+#/!\ Important remark: be advised that this will trigger a Docker daemon restart which might stop running containers.
+docker-machine regenerate-certs docker-machine
 ```
 
 ## Azure Pricing
