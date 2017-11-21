@@ -21,7 +21,7 @@ az container create \
 az container create \
     -g <your-aci-rg> \
     --name <your-aci> \
-    --image acrmabenoitregistry.azurecr.io/nodejs-helloworld \
+    --image <your-acr>.azurecr.io/nodejs-helloworld \
     --registry-password <your-acr-password> \
     --ip-address public \
     --ports 80 443 \
