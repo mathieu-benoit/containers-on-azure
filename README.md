@@ -4,14 +4,12 @@ This repository centralizes different Docker and Azure CLI 2.0 commands to manag
 
 - [Create an Azure Container Registry](./docs/AzureContainerRegistry.md)
 - [Setup a Docker machine](./docs/DockerMachine.md)
-- [Build and Push a Docker container]()
+- [General Docker commands](./docs/DockerCommands.md)
 - [Deploy a Docker container on Azure Container Instance](./docs/AzureContainerInstance.md)
-- [Deploy a Docker container on Azure App Service for Containers]()
-- [Deploy a Docker container on Azure Functions]()
-- https://blogs.msdn.microsoft.com/appserviceteam/2017/11/15/functions-on-linux-preview/
-- [Deploy a Docker container on Azure Container Service for Kubernetes]()
-- ACI Bridge for Kubernetes
-- [Deploy a Docker container on Azure Service Fabric]()
+- [Deploy a Docker container on Azure App Service for Containers](./docs/AzureAppService.md)
+- [Deploy a Docker container on Azure Functions](./docs/AzureFunctions.md)
+- [Deploy a Docker container on Azure Managed Kubernetes](./docs/AzureManagedKubernetes.md)
+- [Deploy a Docker container on Azure Service Fabric](./docs/AzureServiceFabric.md)
 
 ## Resources
 
