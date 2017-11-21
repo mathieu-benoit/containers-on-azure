@@ -10,7 +10,7 @@ az group create \
 #Create the Docker machine on Linux VM
 docker-machine create \
     --driver azure \
-    --azure-subscription-id TODO \
+    --azure-subscription-id <your-subscription-id> \
     --azure-image  "Canonical:UbuntuServer:14.04.5-LTS:latest" \
     --azure-size "Standard_D2_v2" \
     --azure-resource-group docker-machine-rg \
@@ -20,12 +20,12 @@ docker-machine create \
 #To connect to your Docker host in Azure, define the appropriate connection settings
 eval $(docker-machine env docker-machine --shell bash)
 
-#If you need to stop this VM to save some money when you don't need it.
-az vm stop \
-    --name docker-machine-mabenoit \
-    --resource-group docker-machine-mabenoit-rg
+#If you need to deallocate/stop this VM to save some money when you don't need it
+az vm deallocate \
+    --name docker-machine \
+    --resource-group docker-machine-rg
 
-#If you need to start this VM if you previously stopped it.
+#If you need to start this VM previously stopped
 az vm start \
     --name docker-machine-mabenoit \
     --resource-group docker-machine-mabenoit-rg
@@ -38,7 +38,3 @@ TODO
 ## Resources
 
 [How to use Docker Machine to create hosts in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/docker-machine)
-
-
-
-
