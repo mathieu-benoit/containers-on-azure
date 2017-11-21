@@ -15,3 +15,4 @@ This repository centralizes different Docker and Azure CLI 2.0 commands to manag
 
 - [Azure Cloud Shell](https://docs.microsoft.com/azure/cloud-shell/overview)
 - [Choose the cloud platform designed for your container needs](https://azure.microsoft.com/overview/containers/)
+- [.NET Microservices. Architecture for Containerized .NET Applications](https://docs.microsoft.com/dotnet/standard/microservices-architecture/)
