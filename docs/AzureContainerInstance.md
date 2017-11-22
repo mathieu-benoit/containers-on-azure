@@ -11,8 +11,8 @@ az group create \
 #Create your ACI from DockerHub
 az container create \
     -g <your-aci-rg> \
-    --name <your-aci> \
-    --image <dockerhub-username>/nodejs-helloworld \
+    -n <your-aci> \
+    -i <dockerhub-username>/nodejs-helloworld \
     --ip-address public \
     --ports 80 443 \
     -e CONTAINER_HOST=ACI
@@ -20,8 +20,8 @@ az container create \
 #Create your ACI from ACR
 az container create \
     -g <your-aci-rg> \
-    --name <your-aci> \
-    --image <your-acr>.azurecr.io/nodejs-helloworld \
+    -n <your-aci> \
+    -i <your-acr>.azurecr.io/nodejs-helloworld \
     --registry-password <your-acr-password> \
     --ip-address public \
     --ports 80 443 \
@@ -33,20 +33,25 @@ az container create \
 #--os-type Linux
 #--restart-policy Always
 
+#List all your ACIs within a resource group
+az container list \
+    -g <your-aci-rg>
+    -o table
+
 #Check the status of your ACI
 az container show \
-    --name <your-aci> \
-    --resource-group <your-aci-rg>
+    -n <your-aci> \
+    -g <your-aci-rg>
 
 #Get the logs of your ACI
 az container logs \
-    --name <your-aci> \
-    --resource-group <your-aci-rg>
+    -n <your-aci> \
+    -g <your-aci-rg>
 
 #Delete your ACI (you could save some $$)
 az container delete \
-    --name <your-aci> \
-    --resource-group <your-aci-rg>
+    -n <your-aci> \
+    -g <your-aci-rg>
 ```
 
 ## Notes
@@ -57,7 +62,7 @@ az container delete \
 - ACI is for a single container per instance, [it does not cover the higher-value services that are provided by Container Orchestrator](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-orchestrator-relationship)
 - Make sure you understand the [ACI's restart policy setting](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-restart-policy)
 - ACI doesn't provide for now a mechanisme to redeploy/update a container instance - (see associated user voice)[https://feedback.azure.com/forums/602224-azure-container-instances/suggestions/32175820-allow-an-aci-container-to-update-itself-when-the-i] - you should recreate your container/container group with a new IP address
-- ACI doesn't support scale capabilities (increasing the number of instances for one Container Instance)
+- ACI doesn't support scale capabilities (i.e. increasing the number of instances for one Container Instance)
 
 ## Resources
 
