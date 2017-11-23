@@ -7,9 +7,9 @@ This repository centralizes different Docker and Azure CLI 2.0 commands to manag
 - [General Docker commands](./docs/DockerCommands.md)
 - [Deploy a Docker container on Azure Container Instance](./docs/AzureContainerInstance.md)
 - [Deploy a Docker container on Azure App Service for Containers](./docs/AzureAppService.md)
-- [Deploy a Docker container on Azure Functions](./docs/AzureFunctions.md)
 - [Deploy a Docker container on Azure Managed Kubernetes](./docs/AzureManagedKubernetes.md)
 - [Deploy a Docker container on Azure Service Fabric](./docs/AzureServiceFabric.md)
+- [Deploy a Docker container on Azure Functions](./docs/AzureFunctions.md)
 
 ## Resources
 
