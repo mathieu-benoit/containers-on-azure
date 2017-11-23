@@ -71,3 +71,5 @@ az container delete \
 - [ACI pricing](https://azure.microsoft.com/pricing/details/container-instances/)
 - [ACI CLI 2.0 documentation](https://docs.microsoft.com/cli/azure/container)
 - [ACI PowerShell documentation](https://docs.microsoft.com/powershell/module/azurerm.containerinstance/#container_instances)
+- Other labs:
+  - https://github.com/Microsoft/MTC_ContainerCamp/blob/master/modules/azurecontainerinstances/aci.md#task-4-deploy-to-azure-container-instance

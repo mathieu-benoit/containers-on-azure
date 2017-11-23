@@ -11,3 +11,5 @@ TODO
 ## Resources
 
 TODO
+- Other labs:
+  - https://github.com/Microsoft/OpenSourceLabs/tree/master/ApplicationModernization/Modules/ContainersOnServiceFabric
