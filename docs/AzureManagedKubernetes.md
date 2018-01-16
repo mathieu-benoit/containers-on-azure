@@ -10,7 +10,8 @@ az aks create \
 #Create the ACS cluster with Kubernetes as the orchestrator (~ 10 mins)
 az aks create \
     -g myResourceGroup \
-    -n myK8sCluster --generate-ssh-keys
+    -n myK8sCluster \
+    --generate-ssh-keys
 
 #Install kubectl
 az aks install-cli
@@ -25,7 +26,7 @@ kubectl get nodes
 #Create and run a single instance of nodejs-helloworld.
 #https://github.com/denniszielke/phoenix/blob/master/hints/k8sSingle.md
 kubectl run nodejs-helloworld \
-    --image=<dockerhub-username>/nodejs-helloworld
+    --image <dockerhub-username>/nodejs-helloworld
 
 #Create a pod using the data in myapp.yml.
 #https://github.com/denniszielke/phoenix/blob/master/hints/yamlfiles.md
@@ -54,3 +55,4 @@ TODO
   - https://github.com/OSSCanada/microhackfest/tree/master/HOL/05_Orchestrator
   - https://github.com/Microsoft/OpenSourceLabs/tree/master/ApplicationModernization/Modules/ContainersOnACSKubernetes
   - https://anthonychu.ca/post/windows-containers-aci-connector-kubernetes/
+  - https://anthonychu.ca/post/hybrid-kubernetes-linux-windows-cluster-easy-steps/

@@ -12,7 +12,7 @@ az group create \
 az container create \
     -g <your-aci-rg> \
     -n <your-aci> \
-    -i <dockerhub-username>/nodejs-helloworld \
+    --image <dockerhub-username>/nodejs-helloworld \
     --ip-address public \
     --ports 80 443 \
     -e CONTAINER_HOST=ACI
@@ -21,7 +21,7 @@ az container create \
 az container create \
     -g <your-aci-rg> \
     -n <your-aci> \
-    -i <your-acr>.azurecr.io/nodejs-helloworld \
+    --image <your-acr>.azurecr.io/nodejs-helloworld \
     --registry-password <your-acr-password> \
     --ip-address public \
     --ports 80 443 \
