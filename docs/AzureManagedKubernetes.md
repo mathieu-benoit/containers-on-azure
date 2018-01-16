@@ -3,10 +3,6 @@
 ## Commands
 
 ```
-az aks create \
-    -g MyResourceGroup \
-    -n MyManagedCluster
-
 #Create the ACS cluster with Kubernetes as the orchestrator (~ 10 mins)
 az aks create \
     -g myResourceGroup \
