@@ -44,6 +44,7 @@ TODO
 - [AKS pricing](https://azure.microsoft.com/pricing/details/container-service/)
 - [ACI CLI 2.0 documentation](https://docs.microsoft.com/cli/azure/aks)
 - [AKS - Bug Tracker + Announcements ](https://github.com/Azure/AKS)
+- [Free eBook: Kubernetes objects on Microsoft Azure](https://blogs.msdn.microsoft.com/azurecat/2018/01/22/new-ebook-kubernetes-objects-on-microsoft-azure/)
 - Other labs:
   - https://github.com/denniszielke/phoenix
   - https://github.com/Microsoft/OpenSourceLabs/tree/master/ApplicationModernization/KubernetesWorkshopsLab
