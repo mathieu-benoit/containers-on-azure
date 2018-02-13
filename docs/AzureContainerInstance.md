@@ -46,7 +46,8 @@ az container show \
 #Get the logs of your ACI
 az container logs \
     -n <your-aci> \
-    -g <your-aci-rg>
+    -g <your-aci-rg> \
+    --container-name <your-aci-container>
 
 #Delete your ACI (you could save some $$)
 az container delete \
@@ -61,8 +62,9 @@ az container delete \
 - ACI is really great for a fast Docker container deployment and for on-demand process. It's goal is not very to host long-running process like web app or web api, [checkout how it's pricing works](https://azure.microsoft.com/pricing/details/container-instances/).
 - ACI is for a single container per instance, [it does not cover the higher-value services that are provided by Container Orchestrator](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-orchestrator-relationship)
 - Make sure you understand the [ACI's restart policy setting](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-restart-policy)
-- ACI doesn't provide for now a mechanisme to redeploy/update a container instance - (see associated user voice)[https://feedback.azure.com/forums/602224-azure-container-instances/suggestions/32175820-allow-an-aci-container-to-update-itself-when-the-i] - you should recreate your container/container group with a new IP address
-- ACI doesn't support scale capabilities (i.e. increasing the number of instances for one Container Instance)
+- ACI doesn't provide for now a mechanism to redeploy/update a container instance - (see associated user voice)[https://feedback.azure.com/forums/602224-azure-container-instances/suggestions/32175820-allow-an-aci-container-to-update-itself-when-the-i] - you should recreate your container/container group with a new IP address
+- ACI doesn't support for now scale capabilities (i.e. increasing the number of instances for one Container Instance)
+- ACI doesn't support for now ssh connection like asked [here](https://feedback.azure.com/forums/602224-azure-container-instances/suggestions/32426185-open-shell-to-container).
 
 ## Resources
 
