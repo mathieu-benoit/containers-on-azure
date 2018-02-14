@@ -3,38 +3,44 @@
 ## Commands
 
 ```
+#The following variables will be used within the scope of the commands illustrated below:
+RG=<your-resource-group-name>
+ACR=<your-acr-name>
+LOC=<your-acr-location>
+REPO=<your-acr-repo>
+
 #Create the resource group for the services for your ACR
 az group create \
-    -l eastus \
-    -n <your-acr-rg>
+    -l $LOC \
+    -n $RG
 
 #Create your ACR
 az acr create \
     --admin-enabled \
     --sku Basic \
     --verbose \
-    -l westus \
-    -n <your-acr> \
-    -g <your-acr-rg>
+    -l $LOC \
+    -n $ACR \
+    -g $RG
 
 #Get your ACR's loginServer
 az acr show \
-    -n <your-acr> \
+    -n $ACR \
     --query loginServer
 
 #Get your ACR's password
 az acr credential show \
-    -n <your-acr> \
+    -n $ACR \
     --query "passwords[0].value"
 
 #Get the list of the repositories within your ACR
 az acr repository list \
-    -n <your-acr>
+    -n $ACR
 
 #Get tags of a repository within your ACR
 az acr repository show-tags \
-    -n <your-acr> \
-    --repository <your-acr-repo>
+    -n $ACR \
+    --repository $REPO
 ```
 
 ## Notes
