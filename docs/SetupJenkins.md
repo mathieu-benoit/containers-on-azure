@@ -18,6 +18,8 @@ jenkins/jenkins:lts
 
 TODO
 
+Azure CLI plugin
+
 ## Setup CI/CD
 
 TODO

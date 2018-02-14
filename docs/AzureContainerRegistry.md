@@ -19,13 +19,22 @@ az acr create \
 
 #Get your ACR's loginServer
 az acr show \
-    --name <your-acr> \
+    -n <your-acr> \
     --query loginServer
 
 #Get your ACR's password
 az acr credential show \
-    --name <your-acr> \
+    -n <your-acr> \
     --query "passwords[0].value"
+
+#Get the list of the repositories within your ACR
+az acr repository list \
+    -n <your-acr>
+
+#Get tags of a repository within your ACR
+az acr repository show-tags \
+    -n <your-acr> \
+    --repository <your-acr-repo>
 ```
 
 ## Notes
