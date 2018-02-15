@@ -3,25 +3,33 @@
 ## Commands
 
 ```
+#The following variables will be used within the scope of the commands illustrated below:
+RG=<your-resource-group-name>
+ACI=<your-aci-name>
+LOC=<your-aci-location>
+CONT=<your-container-name>
+
 #Create the resource group for the services for your ACI
 az group create \
-    -l eastus \
-    -n <your-aci-rg>
+    -l $LOC \
+    -n $RG
 
 #Create your ACI from DockerHub
 az container create \
-    -g <your-aci-rg> \
-    -n <your-aci> \
-    --image <dockerhub-username>/nodejs-helloworld \
+    -g $RG \
+    -n $ACI \
+    -l $LOC \
+    --image <dockerhub-username>/$CONT \
     --ip-address public \
     --ports 80 443 \
     -e CONTAINER_HOST=ACI
 
 #Create your ACI from ACR
 az container create \
-    -g <your-aci-rg> \
-    -n <your-aci> \
-    --image <your-acr>.azurecr.io/nodejs-helloworld \
+    -g $RG \
+    -n $ACI \
+    -l $LOC \
+    --image <your-acr>.azurecr.io/$CONT \
     --registry-password <your-acr-password> \
     --ip-address public \
     --ports 80 443 \
@@ -35,24 +43,24 @@ az container create \
 
 #List all your ACIs within a resource group
 az container list \
-    -g <your-aci-rg>
+    -g $RG
     -o table
 
 #Check the status of your ACI
 az container show \
-    -n <your-aci> \
-    -g <your-aci-rg>
+    -n $ACI \
+    -g $RG
 
 #Get the logs of your ACI
 az container logs \
-    -n <your-aci> \
-    -g <your-aci-rg> \
-    --container-name <your-aci-container>
+    -n $ACI \
+    -g $RG \
+    --container-name $CONT
 
 #Delete your ACI (you could save some $$)
 az container delete \
-    -n <your-aci> \
-    -g <your-aci-rg>
+    -n $ACI \
+    -g $RG
 ```
 
 ## Notes
