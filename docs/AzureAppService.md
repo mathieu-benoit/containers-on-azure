@@ -3,15 +3,21 @@
 ## Commands
 
 ```
+#The following variables will be used within the scope of the commands illustrated below:
+RG=<your-resource-group-name>
+AASC=<your-aasc-name>
+LOC=<your-aasc-location>
+
 #Create the resource group for the services for your AASC
 az group create \
-    -l eastus \
+    -l $LOC \
     -n <your-aasc-rg>
 
-#Create your AASC App Service Plan
+#Create your AASC App Service Plan with Container on Linux support
 az appservice plan create \
-    -g <your-aasc-rg> \
-    -n <your-aasc-plan> \
+    -g $RG \
+    -n $AASC \
+    -l $LOC \
     --is-linux
 
 #Optional parameters and default values for "az container create":
@@ -20,15 +26,15 @@ az appservice plan create \
 
 #Create your AASC Web App
 az webapp create \
-    -n <your-aasc-app> \
-    -g <your-aasc-rg> \
-    --plan <your-aasc-plan> \
+    -n $AASC \
+    -g $RG \
+    --plan $AASC \
     -i <dockerhub-username>/nodejs-helloworld
 
 #Set ACR credentials
 az webapp config container set \
-    -n <your-aasc-app> \
-    -g <your-aasc-rg> \
+    -n $AASC \
+    -g $RG \
     -i <your-acr>.azurecr.io/nodejs-helloworld \
     -u <your-acr-user> \
     -r <your-acr>.azurecr.io \
@@ -36,48 +42,48 @@ az webapp config container set \
 
 #Set appsettings
 az webapp config appsettings set \
-    -g <your-aasc-rg> \
-    -n <your-aasc-app> \
+    -g $RG \
+    -n $AASC \
     --settings CONTAINER_HOST=AASC
 
 #Optional connectionstrings settings could be set as well using: "az webapp config connection-string set"
 
 #Restart your AASC (it could be one of the ways to update your webapp if you are referencing the latest tag for example)
 az webapp restart \
-    -n <your-aasc-app> \
-    -g <your-aasc-rg>
+    -n $AASC \
+    -g $RG
 
 #Configure logging for your AASC.
 az webapp log config \
-    -n <your-aasc-app> \
-    -g <your-aasc-rg> \
+    -n $AASC \
+    -g $RG \
     --docker-container-logging filesystem
 
 #Get the logs of your AASC as a zip file
 az webapp log download \
-    -n <your-aasc-app> \
-    -g <your-aasc-rg>
+    -n $AASC \
+    -g $RG
 
 #Start live log tracing for your AASC
 az webapp log tail \
-    -n <your-aasc-app> \
-    -g <your-aasc-rg>
+    -n $AASC \
+    -g $RG
 
 #Scale up your AASC (change the sku/price)
-#Note: you could setup auto-scaling as well.
 az appservice plan update \
     --sku S1 \
-    -n <your-aasc-app>
+    -n $AASC
 
 #Scale out your AASC (increase the number of instances/workers)
+#Rk: the price won't be the same, it will be multiply by X if X is the number-of-workers
 az appservice plan update \
     --number-of-workers 2 \
-    -n <your-aasc-app>
+    -n $AASC
 
 #Delete your AASC plan (you could save some $$)
 az appservice plan delete \
-    --name <your-aasc-app> \
-    --resource-group <your-aasc-rg>
+    --name $AASC \
+    --resource-group $RG
 ```
 
 ## Notes
