@@ -3,16 +3,28 @@
 ## Commands
 
 ```
+#The following variables will be used within the scope of the commands illustrated below:
+RG=<your-resource-group-name>
+AKS=<your-aks-name>
+LOC=<your-aks-location>
+
+#Create the resource group for the services for your AKS
+az group create \
+    -l $LOC \
+    -n $RG
+
 #Create the ACS cluster with Kubernetes as the orchestrator (~ 10 mins)
+#Note: it will create another resource group "MC_$RG_$AKS_$LOC
 az aks create \
-    -g myResourceGroup \
-    -n myK8sCluster \
+    -g $RG \
+    -n $AKS \
+    -l $LOC
     --generate-ssh-keys
 
 #Get the information of your AKS
 az aks show \
-    -n myK8sCluster \
-    -g myResourceGroup \
+    -n $AKS \
+    -g $RG \
     --output table
 
 #Install kubectl
@@ -20,8 +32,11 @@ az aks install-cli
 
 #Get the cluster credentials
 az aks get-credentials \
-    -g myResourceGroup \
-    -n myK8sCluster
+    -g $RG \
+    -n $AKS
+
+#Install kubectl
+az aks install-cli
 
 kubectl get nodes
 
@@ -53,11 +68,11 @@ kubectl delete \
     -f heroes-db.yaml
 
 #List the pods
-#Rk: add a " | XXX" at the end of this command to only list the pods containing XXX in the name
+#Rk: add a " | grep XXX" at the end of this command to only list the pods containing XXX in the name
 kubectl get pods
 
 #List the services
-#Rk: add a " | XXX" at the end of this command to only list the services containing XXX in the name
+#Rk: add a " | grep XXX" at the end of this command to only list the services containing XXX in the name
 #Other rk: "kubectl get svc" works as well for the same purpose
 kubectl get service
 
@@ -65,25 +80,23 @@ kubectl get service nodejs-helloworld \
     --watch
 
 az aks scale \
-    -g $RESOURCE_GROUP_NAME \
-    -n $AKS_CLUSTER_NAME \
+    -g $RG \
+    -n $AKS \
     --node-count 4
 
 #Open a bash session to execute commands in a specific pod
 kubectl exec \
     -it $POD bash
 
-#Get the Kubernetes versions available with AKS
-az aks get-versions
-
+#Get the Kubernetes versions available for Kubernetes in AKS
 az aks get-upgrades \
-    -n $AKS_CLUSTER_NAME \
-    -g $RESOURCE_GROUP_NAME \
+    -n $AKS \
+    -g $RG \
     --output table
 
 az aks upgrade \
-    -n $AKS_CLUSTER_NAME \
-    -g $RESOURCE_GROUP_NAME \
+    -n $AKS \
+    -g $RG \
     --kubernetes-version 1.8.2
 ```
 
@@ -98,6 +111,7 @@ TODO
 - [AKS pricing](https://azure.microsoft.com/pricing/details/container-service/)
 - [ACI CLI 2.0 documentation](https://docs.microsoft.com/cli/azure/aks)
 - [AKS - Bug Tracker + Announcements ](https://github.com/Azure/AKS)
+- [AKS - FAQ](https://docs.microsoft.com/en-us/azure/aks/faq)
 - [Free eBook: Kubernetes objects on Microsoft Azure](https://blogs.msdn.microsoft.com/azurecat/2018/01/22/new-ebook-kubernetes-objects-on-microsoft-azure/)
 - [The Illustrated Children's Guide to Kubernetes](https://www.youtube.com/watch?v=4ht22ReBjno)
 - Other labs:
