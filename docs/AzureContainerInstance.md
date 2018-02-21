@@ -83,3 +83,7 @@ az container delete \
 - [ACI PowerShell documentation](https://docs.microsoft.com/powershell/module/azurerm.containerinstance/#container_instances)
 - Other labs:
   - https://github.com/Microsoft/MTC_ContainerCamp/blob/master/modules/azurecontainerinstances/aci.md#task-4-deploy-to-azure-container-instance
+
+## TODO
+
+- Update lab with these updates: https://azure.microsoft.com/en-us/updates/aci-feb/
