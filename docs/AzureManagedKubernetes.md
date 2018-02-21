@@ -133,8 +133,10 @@ kubectl apply \
 
 ## Notes
 
-- AKS is still in preview, not for Production workload yet
-- Kubernetes looks to be THE Container orchestrator the industry and the communities are investing on
+- AKS is still in preview, not for Production workload yet.
+- AKS is managing the master nodes of your Kubernetes cluster, you have commands to interact with and you won't pay for the resources behind the scenes, just for your agent nodes resources.
+- Kubernetes looks to be THE Container orchestrator the industry and the communities are investing on.
+- The ACI Connector for AKS is really promising, the Virtual Kubelet project associated is bringing the serverless concept for Kubernetes.
 
 ## Resources
 
