@@ -24,12 +24,13 @@ az aks create \
     -l $LOC
     --generate-ssh-keys
 
-#Optional parameters and default values for "az container create":
+#Optional parameters and default values for "az aks create":
 #--no-wait false
 #--node-count 3
 #--kubernetes-version 1.7.9
 #--admin-username azureuser
 #--ssh-key-value ~.sshid_rsa.pub
+#--service-principal --> see details [here](https://docs.microsoft.com/en-us/azure/aks/kubernetes-service-principal).
 
 #Get the information of your AKS
 az aks show \
@@ -146,6 +147,7 @@ kubectl apply \
 - [ACI CLI 2.0 documentation](https://docs.microsoft.com/cli/azure/aks)
 - [AKS - Bug Tracker + Announcements ](https://github.com/Azure/AKS)
 - [AKS - FAQ](https://docs.microsoft.com/en-us/azure/aks/faq)
+- [Quotas and regional limits](https://docs.microsoft.com/en-us/azure/aks/container-service-quotas)
 - [Free eBook: Kubernetes objects on Microsoft Azure](https://blogs.msdn.microsoft.com/azurecat/2018/01/22/new-ebook-kubernetes-objects-on-microsoft-azure/)
 - [The Illustrated Children's Guide to Kubernetes](https://www.youtube.com/watch?v=4ht22ReBjno)
 - [Why should I care about Kubernetes, Docker, and Container Orchestration?](https://www.hanselman.com/blog/WhyShouldICareAboutKubernetesDockerAndContainerOrchestration.aspx)
