@@ -1,0 +1,8 @@
+version: '1'
+services:
+  nodejs-helloworld:
+    image: nodejs-helloworld
+    environment:       
+      - CONTAINER_HOST=LOCAl   
+    ports:
+      - "80:80"

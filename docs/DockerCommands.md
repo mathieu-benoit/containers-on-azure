@@ -7,8 +7,11 @@
 IMG=<your-container-image-name>
 USER=<your-docker-registry-username>
 
-#To build a Docker container locally
+#To build locally a single Docker container
 docker build -t $IMG .
+
+#To build locally a multi Docker containers with docker-compose.yml
+docker-compose build
 
 #To rename a Docker container
 docker tag $IMG $USER/$IMG
@@ -32,8 +35,16 @@ docker push $USER/$IMG
 #To remove a local Docker image
 docker rmi <image-id>
 
-#To run locally a Docker container
-docker run -d --name $IMG $IMG
+#To run locally a single Docker container
+docker run \
+    -d \
+    -p 80:80 \
+    -e 'CONTAINER_HOST=LOCAL' \
+    -n $IMG \
+    $IMG 
+
+#To run locally a multi Docker containers with docker-compose.yml
+docker-compose up
 
 #To list the Docker containers instances
 docker ps
