@@ -1,8 +1,8 @@
 version: '1'
 services:
   nodejs-helloworld:
-    image: nodejs-helloworld
+    image: <dockerhub-username>/nodejs-helloworld
     environment:       
-      - CONTAINER_HOST=LOCAl   
+      - CONTAINER_HOST=LOCAL
     ports:
       - "80:80"
