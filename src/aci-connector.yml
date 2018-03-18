@@ -4,7 +4,7 @@ metadata:
   name: nodejs-helloworld
 spec:
   containers:
-  - image: <dockerhub-username>/nodejs-helloworld
+  - image: mabenoit/nodejs-helloworld
     imagePullPolicy: Always
     name: nodejs-helloworld
     resources:

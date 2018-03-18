@@ -138,7 +138,7 @@ az aks install-connector \
 #--os-type Linux
 
 #Deploy the aci-connector.yml
-kubectl apply -f aci-connector.yml
+kubectl apply -f ../src/aci-connector.yml
 
 TODO
 https://github.com/virtual-kubelet/virtual-kubelet/blob/master/providers/azure/README.md#schedule-a-pod-in-aci
