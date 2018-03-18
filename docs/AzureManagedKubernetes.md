@@ -131,11 +131,14 @@ helm init
 #Add an ACI Connector node
 az aks install-connector \
     -n $AKS \
+    -g $RG \
     --connector-name aci-connector
 
 #Optional parameters and default values for "az aks install-connector":
-#-g MC_$RG_$AKS_$LOC
 #--os-type Linux
+
+#Deploy the aci-connector.yml
+kubectl apply -f aci-connector.yml
 
 TODO
 https://github.com/virtual-kubelet/virtual-kubelet/blob/master/providers/azure/README.md#schedule-a-pod-in-aci
