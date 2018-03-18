@@ -21,7 +21,7 @@ az group create \
 az aks create \
     -g $RG \
     -n $AKS \
-    -l $LOC
+    -l $LOC \
     --generate-ssh-keys
 
 #Optional parameters and default values for "az aks create":
@@ -46,6 +46,11 @@ az aks get-credentials \
 #Install kubectl if not yet installed
 #Rk: you could check if it's installed with "kubectl version"
 az aks install-cli
+
+#Access Kubernetes control panel (not working with Azure Cloud Shell), then access the url
+az aks browse \
+    -g $RG \
+    -n $AKS
 
 #Get the nodes of the Kubernetes cluster
 #Rk: while deploying and to watch these information you could prefix this command with "watch", i.e. "watch kubectl get nodes", CTRL+C to exit.
@@ -107,15 +112,6 @@ kubectl delete \
     -f $IMG.yaml
 ```
 
-### Commands for creating a pod/service by running a Docker image
-
-```
-#Create and run a single instance of a Docker image
-#FIXME: more details to provide here according this: https://github.com/denniszielke/phoenix/blob/master/hints/k8sSingle.md
-kubectl run $IMG \
-    --image <dockerhub-username>/$IMG
-```
-
 ### Commands for creating a pod/service by deploying a YAML file
 
 ```
@@ -129,7 +125,25 @@ kubectl apply \
 ### Commands for creating a pod/service by deploying the ACI Connector
 
 ```
-#FIXME: more details to provide here according this: https://github.com/virtual-kubelet/virtual-kubelet/tree/master/providers/azure
+#Initialize Helm and Tiller
+helm init
+
+#Add an ACI Connector node
+az aks install-connector \
+    -n $AKS \
+    --connector-name aci-connector
+
+#Optional parameters and default values for "az aks install-connector":
+#-g MC_$RG_$AKS_$LOC
+#--os-type Linux
+
+TODO
+https://github.com/virtual-kubelet/virtual-kubelet/blob/master/providers/azure/README.md#schedule-a-pod-in-aci
+
+#Remove an ACI Connector node
+az aks remove-connector \
+    -n $AKS \
+    --connector-name aci-connector
 ```
 
 ## Notes
@@ -137,7 +151,7 @@ kubectl apply \
 - AKS is still in preview, not for Production workload yet.
 - AKS is managing the master nodes of your Kubernetes cluster, you have commands to interact with and you won't pay for the resources behind the scenes, just for your agent nodes resources.
 - Kubernetes looks to be THE Container orchestrator the industry and the communities are investing on.
-- The ACI Connector for AKS is really promising, the Virtual Kubelet project associated is bringing the serverless concept for Kubernetes.
+- The ACI Connector ([Virtual Kubelet](https://github.com/virtual-kubelet/virtual-kubelet))for AKS is really promising, it is bringing the serverless concept for Kubernetes.
 
 ## Resources
 
@@ -163,5 +177,7 @@ kubectl apply \
 
 ## TODO
 
+- Add a section about [Using OpenFaaS on AKS](https://docs.microsoft.com/en-us/azure/aks/openfaas)
 - Add a section about [Kubernetes dashboard](https://docs.microsoft.com/en-us/azure/aks/kubernetes-dashboard)
+- Add a section about [HTTPS Ingress](https://docs.microsoft.com/en-us/azure/aks/ingress)
 - Add a section about [Persistent volumes with Azure files](https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv)
