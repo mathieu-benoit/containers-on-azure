@@ -140,12 +140,13 @@ az aks install-connector \
 #Deploy the aci-connector.yml
 kubectl apply -f ../src/aci-connector.yml
 
-TODO
-https://github.com/virtual-kubelet/virtual-kubelet/blob/master/providers/azure/README.md#schedule-a-pod-in-aci
+#Check the pod created
+kubectl get pods -o wide
 
 #Remove an ACI Connector node
 az aks remove-connector \
     -n $AKS \
+    -g $RG \
     --connector-name aci-connector
 ```
 
@@ -154,7 +155,7 @@ az aks remove-connector \
 - AKS is still in preview, not for Production workload yet.
 - AKS is managing the master nodes of your Kubernetes cluster, you have commands to interact with and you won't pay for the resources behind the scenes, just for your agent nodes resources.
 - Kubernetes looks to be THE Container orchestrator the industry and the communities are investing on.
-- The ACI Connector ([Virtual Kubelet](https://github.com/virtual-kubelet/virtual-kubelet))for AKS is really promising, it is bringing the serverless concept for Kubernetes.
+- The ACI Connector ([Virtual Kubelet](https://github.com/virtual-kubelet/virtual-kubelet)) for AKS is really promising, it is bringing the serverless concept for Kubernetes nodes.
 
 ## Resources
 
