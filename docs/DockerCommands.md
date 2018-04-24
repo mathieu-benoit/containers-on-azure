@@ -41,7 +41,10 @@ docker run \
     -p 80:80 \
     -e 'CONTAINER_HOST=LOCAL' \
     -n $IMG \
-    $IMG 
+    $IMG
+
+#To get logs of a running Docker container
+docker logs <instance-id>
 
 #To run locally a multi Docker containers with docker-compose.yml
 docker-compose up
