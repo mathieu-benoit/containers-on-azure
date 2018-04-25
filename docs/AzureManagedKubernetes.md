@@ -48,6 +48,9 @@ az aks get-credentials \
     -g $RG \
     -n $AKS
 
+#Get the current config/cluster credentials
+kubectl config current-context
+
 #Install kubectl if not yet installed
 #Rk: you could check if it's installed with "kubectl version"
 az aks install-cli
