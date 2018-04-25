@@ -16,6 +16,11 @@ az group create \
     -l $LOC \
     -n $RG
 
+#Get the Kubernetes versions available for creating a Kubernetes cluster in a specific location
+az aks get-versions \
+  -l $LOC \
+  -o table
+
 #Create the ACS cluster with Kubernetes as the orchestrator (~ 10 mins)
 #Note: it will create another resource group "MC_$RG_$AKS_$LOC in which you will find all the agend nodes resources
 az aks create \
@@ -25,7 +30,7 @@ az aks create \
     --generate-ssh-keys
 
 #Optional parameters and default values for "az aks create":
-#--no-wait false
+#--no-wait
 #--node-count 3
 #--kubernetes-version 1.7.9
 #--admin-username azureuser
@@ -36,7 +41,7 @@ az aks create \
 az aks show \
     -n $AKS \
     -g $RG \
-    --output table
+    -o table
 
 #Get the cluster credentials
 az aks get-credentials \
@@ -65,11 +70,11 @@ az aks scale \
     -n $AKS \
     --node-count 4
 
-#Get the Kubernetes versions available for Kubernetes in AKS (~ 10 mins)
+#Get the Kubernetes versions available for upgrading your Kubernetes cluster
 az aks get-upgrades \
     -n $AKS \
     -g $RG \
-    --output table
+    -o table
 
 #Upgrade the version of your Kubernetes cluster
 az aks upgrade \
