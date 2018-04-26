@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: nodejs-helloworld
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nodejs-helloworld
+    spec:
+      containers:
+      - name: nodejs-helloworld
+        image: mabenoit/nodejs-helloworld
+        ports:
+        - containerPort: 80
+        env:
+        - name: CONTAINER_HOST
+          value: "AKS"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-helloworld
+spec:
+  selector:
+    app: nodejs-helloworld
+  ports:
+    - name: nodejs-helloworld
+      port: 80
+      targetPort: 80
+  type: LoadBalancer

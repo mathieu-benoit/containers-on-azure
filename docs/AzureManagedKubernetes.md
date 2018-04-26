@@ -127,7 +127,7 @@ kubectl describe svc <svc-name>
 
 #Delete a pod, service, deployment by their yaml file
 kubectl delete \
-    -f $IMG.yaml
+    -f aks-deploy.yml
 
 #Delete a pod
 kubectl delete pod <pod-name>
@@ -144,6 +144,8 @@ kubectl run <deployment-name> \
   --image $IMG \
   --port 80 \
   --env CONTAINER_HOST=AKS
+
+#Note: after running this command you should see associated entries with "kubectl get pods" and "kubectl get deploy"
 
 #Expose the instance to the world via Azure Load Balancer (this will take a few minutes)
 kubectl expose deployment <deployment-name> \
@@ -163,11 +165,12 @@ kubectl edit svc <deployment-name>
 ### Commands for creating a pod/service by deploying a YAML file
 
 ```
-#Apply a pod using the data in myapp.yml
+#Create a deployment by applying aks-deploy.yml (this will take a few minutes, especially for the LoadBalancer setup)
 #Rk: you could use "create" instead of "apply", but "apply" will perform a "create or update".
-#FIXME: more details to provide here according this: https://github.com/denniszielke/phoenix/blob/master/hints/yamlfiles.md
 kubectl apply \
-    -f $IMG.yml
+    -f aks-deploy.yml
+
+#Note: after running this command you should see associated entries with "kubectl get pods", "kubectl get deploy" and "kubectl get svc".
 ```
 
 ### Commands for creating a pod/service by deploying the ACI Connector
