@@ -103,21 +103,61 @@ kubectl create secret docker-registry acr-secret \
 #Other rk: "kubectl get pod" works as well for the same purpose
 kubectl get pods
 
-#List the services
-#Rk: add a " | grep XXX" at the end of this command to only list the services containing XXX in the name
-#Other rk: "kubectl get svc" works as well for the same purpose
-kubectl get service
+#Get the information for a specific pod
+kubectl describe pod <pod-name>
 
-kubectl get service $IMG \
-    --watch
+#Get logs of a specific pod
+kubectl logs <pod-name>
 
 #Open a bash session to execute commands in a specific pod
 kubectl exec \
-    -it $POD bash
+    -it <pod-name> bash
+
+#List the services
+#Rk: add a " | grep XXX" at the end of this command to only list the services containing XXX in the name
+#Other rk: "kubectl get service" works as well for the same purpose
+kubectl get svc
+
+#Get service info + watch for update, useful for external-ip assignment for example
+kubectl get svc $IMG \
+    --watch
+
+#Get the information for a specific svc
+kubectl describe svc <svc-name>
 
 #Delete a pod, service, deployment by their yaml file
 kubectl delete \
     -f $IMG.yaml
+
+#Delete a pod
+kubectl delete pod <pod-name>
+
+#Delete a svc
+kubectl delete svc <svc-name>
+```
+
+### Commands for creating a pod/service by running a docker image
+
+```
+#Run a Docker image in the Kubernetes cluster
+kubectl run <deployment-name> \
+  --image $IMG \
+  --port 80 \
+  --env CONTAINER_HOST=AKS
+
+#Expose the instance to the world via Azure Load Balancer (this will take a few minutes)
+kubectl expose deployment <deployment-name> \
+  --port 80 \
+  --type LoadBalancer
+
+#Watch the service to get the external IP as it's provisioned
+kubectl get svc <deployment-name> -w
+
+#Edit the deployment deployed
+kubectl edit deploy <deployment-name>
+
+#Edit the service deployed
+kubectl edit svc <deployment-name>
 ```
 
 ### Commands for creating a pod/service by deploying a YAML file
@@ -178,7 +218,11 @@ az aks remove-connector \
 - [The Illustrated Children's Guide to Kubernetes](https://www.youtube.com/watch?v=4ht22ReBjno)
 - [Why should I care about Kubernetes, Docker, and Container Orchestration?](https://www.hanselman.com/blog/WhyShouldICareAboutKubernetesDockerAndContainerOrchestration.aspx)
 - [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+- Helm Charts
+  - [Kubernetes - Helm Charts](https://github.com/kubernetes/charts)
+  - [Azure Samples - Helm Charts](https://github.com/Azure-Samples/helm-charts)
 - Other labs:
+  - [Azure Samples - Bursting from AKS to ACI with the Virtual Kubelet](https://azure.microsoft.com/en-us/resources/samples/virtual-kubelet-aci-burst/)
   - https://github.com/Azure/blackbelt-aks-hackfest
   - https://github.com/denniszielke/phoenix
   - https://github.com/Microsoft/OpenSourceLabs/tree/master/ApplicationModernization/KubernetesWorkshopsLab
