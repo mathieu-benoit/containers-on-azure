@@ -40,6 +40,7 @@ az container create \
 #--memory 1.5
 #--os-type Linux
 #--restart-policy Always
+#--dns-name-label ; The dns name label for the container group with public ip. Should be unique per region. It will be your prefix" http://<dns-name-label>.<region>.azurecontainer.io
 
 #List all your ACIs within a resource group
 az container list \
@@ -80,12 +81,12 @@ az container delete \
 
 - ACI has been released GA on April 25, 2018 - [http://aka.ms/aci/ga-blog](http://aka.ms/aci/ga-blog)
 - ACI supports both Windows and Linux
-- ACI is really great for a fast Docker container deployment and for on-demand process. Its goal is not very to host long-running process like web app or web api, [checkout how its pricing works](https://azure.microsoft.com/pricing/details/container-instances/).
+- ACI is really great for a fast/burstable Docker container deployment and for on-demand process. Its goal is not very to host long-running process like web app or web api, [checkout how its pricing works](https://azure.microsoft.com/pricing/details/container-instances/).
 - ACI is for a single container per instance, [it does not cover the higher-value services that are provided by Container Orchestrator](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-orchestrator-relationship)
 - Make sure you understand the [ACI's restart policy setting](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-restart-policy)
 - ACI doesn't provide for now a mechanism to redeploy/update a container instance - (see associated user voice)[https://feedback.azure.com/forums/602224-azure-container-instances/suggestions/32175820-allow-an-aci-container-to-update-itself-when-the-i] - you should recreate your container/container group with a new IP address
-- ACI doesn't support for now scale capabilities (i.e. increasing the number of instances for one Container Instance)
-- [ACI Container Groups](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-container-groups) is like the Pod concept for Kubernetes, only available on Linux for now.
+- ACI doesn't support for now scale out capabilities (i.e. increasing the number of instances for one Container Instance) but you could create more container group for this... For scale up, you could update the CPU/memory resource of existing Container Group but not yet by CLI/PowerShell but only by ARM Templates.
+- [ACI Container Groups](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-container-groups) is like the Pod concept for Kubernetes, only available on Linux for now. Rk: you could deploy multiple Containers/Instances in one Container Group only by ARM Templates today, not by CLI nor PowerShell.
 - You could [mount an Azure file, emptyDir, rigRepo or secret share with ACI](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-volume-azure-files)
 
 ## Resources
