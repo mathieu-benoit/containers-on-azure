@@ -36,7 +36,6 @@ az aks create \
 #--ssh-key-value ~.sshid_rsa.pub
 #--service-principal --> see details [here](https://docs.microsoft.com/en-us/azure/aks/kubernetes-service-principal).
 
-#You could see the detail of the resources deployed in 2 resource groups you have now:
 #To see the deployment entries history of your resource group and grab the deployment name:
 az group deployment list \
   -g $RG \
@@ -48,15 +47,15 @@ az group deployment operation list \
   --query '[].{resource:properties.targetResource.resourceType}' \
   -o table
 #To see the deployment entries history of your AKS agent nodes resource group auto-created when you provisioned 
+az group deployment list \
+  -g MC_$RG_$AKS_$LOC \
+  -o table
+#To see the Azure resources actually deployed for your AKS agent nodes
 az group deployment operation list \
   -g MC_$RG_$AKS_$LOC \
   -n <deployment-name> \
   --query '[].{resource:properties.targetResource.resourceType}' \
   -o table
-#To see the Azure resources actually deployed for your AKS agent nodes
-az group deployment operation list \
-  -g $RG \
-  -n <deployment-name>
 
 #Get the information of your AKS
 az aks show \
@@ -93,6 +92,17 @@ az aks scale \
     -g $RG \
     -n $AKS \
     --node-count 4
+
+#To see the deployment entries history of your AKS agent nodes resource group auto-created when you provisioned 
+az group deployment list \
+  -g MC_$RG_$AKS_$LOC \
+  -o table
+#To see the Azure resources actually deployed for your AKS agent nodes
+az group deployment operation list \
+  -g MC_$RG_$AKS_$LOC \
+  -n <deployment-name> \
+  --query '[].{resource:properties.targetResource.resourceType}' \
+  -o table
 
 #Get the Kubernetes versions available for upgrading your Kubernetes cluster
 az aks get-upgrades \
@@ -146,6 +156,22 @@ kubectl get svc $IMG \
 #Get the information for a specific svc
 kubectl describe svc <svc-name>
 
+#List the deployments
+#Other rk: "kubectl get deployment" works as well for the same purpose
+kubectl get deploy
+
+#Get the information for a specific deployment
+kubectl describe deploy <deployment-name>
+
+#Scale pods
+kubectl scale --replicas=3 deployment/<deployment-name>
+
+#Set Autoscale
+#Note: you need to setup resources:requests/cpu before
+kubectl autoscale deployment <deployment-name> --cpu-percent=50 --min=3 --max=10
+#You could see the status of the autoscaler:
+kubectl get hpa
+
 #Delete a pod, service, deployment by their yaml file
 kubectl delete \
     -f aks-deploy.yml
@@ -155,9 +181,12 @@ kubectl delete pod <pod-name>
 
 #Delete a svc
 kubectl delete svc <svc-name>
+
+#Delete a deployment
+kubectl delete deploy <deployment-name>
 ```
 
-### Commands for creating a pod/service by running a docker image
+### Commands for managing deployment by "kubectl run/set" commands
 
 ```
 #Run a Docker image in the Kubernetes cluster
@@ -181,12 +210,27 @@ kubectl edit deploy <deployment-name>
 
 #Edit the service deployed
 kubectl edit svc <deployment-name>
+
+#Set resources cpu/memory limits/requests for all containers of a specific deployment
+kubectl set resources deployment <deployment-name> \
+  --limits cpu=200m,memory=512Mi \
+  --requests cpu=100m,memory=256Mi
+#Note: you could add -c <container-name> for setting these resources just on a specific container
+
+#Set environment variables
+kubectl set env deployment/<deployment-name> MY_ENV=MY_VALUE
+
+#List environment variables 
+kubectl set env deployment/<deployment-name> --list
+
+#Update a Container image
+kubectl set image deployment/<deployment-name> <container-image>=<container-image>:<new-tag>
 ```
 
-### Commands for creating a pod/service by deploying a YAML file
+### Commands for managing deployments by YAML file
 
 ```
-#Create a deployment by applying aks-deploy.yml (this will take a few minutes, especially for the LoadBalancer setup)
+#Create/Update a deployment by applying aks-deploy.yml (this will take a few minutes, especially for the LoadBalancer creation)
 #Rk: you could use "create" instead of "apply", but "apply" will perform a "create or update".
 kubectl apply \
     -f aks-deploy.yml
@@ -194,7 +238,7 @@ kubectl apply \
 #Note: after running this command you should see associated entries with "kubectl get pods", "kubectl get deploy" and "kubectl get svc".
 ```
 
-### Commands for creating a pod/service by deploying the ACI Connector
+### Commands for managing deployments by ACI Connector
 
 ```
 #Initialize Helm and Tiller

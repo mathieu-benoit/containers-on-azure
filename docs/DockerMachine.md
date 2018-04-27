@@ -1,12 +1,14 @@
 # Setup a Docker Machine
 
-## Azure Linux Docker Machine
 ```
 #The following variables will be used within the scope of the commands illustrated below:
 RG=<your-resource-group-name>
 VM=<your-docker-machine-name>
 LOC=<your-docker-machine-location>
+```
 
+## Azure Linux Docker Machine
+```
 #Create the resource group for the services for your Docker machine
 az group create \
     --name $RG \
