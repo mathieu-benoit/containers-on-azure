@@ -22,7 +22,6 @@ az aks get-versions \
   -o table
 
 #Create the ACS cluster with Kubernetes as the orchestrator (~ 10 mins)
-#Note: it will create another resource group "MC_$RG_$AKS_$LOC in which you will find all the agend nodes resources
 az aks create \
     -g $RG \
     -n $AKS \
@@ -32,10 +31,32 @@ az aks create \
 #Optional parameters and default values for "az aks create":
 #--no-wait
 #--node-count 3
-#--kubernetes-version 1.7.9
+#--kubernetes-version 1.8.11
 #--admin-username azureuser
 #--ssh-key-value ~.sshid_rsa.pub
 #--service-principal --> see details [here](https://docs.microsoft.com/en-us/azure/aks/kubernetes-service-principal).
+
+#You could see the detail of the resources deployed in 2 resource groups you have now:
+#To see the deployment entries history of your resource group and grab the deployment name:
+az group deployment list \
+  -g $RG \
+  -o table
+#To see the AKS resource itself:
+az group deployment operation list \
+  -g $RG \
+  -n <deployment-name> \
+  --query '[].{resource:properties.targetResource.resourceType}' \
+  -o table
+#To see the Azure resources actually deployed for your AKS agent nodes
+az group deployment operation list \
+  -g MC_$RG_$AKS_$LOC \
+  -n <deployment-name> \
+  --query '[].{resource:properties.targetResource.resourceType}' \
+  -o table
+#To see the Azure resources actually deployed for your AKS agent nodes
+az group deployment operation list \
+  -g $RG \
+  -n <deployment-name>
 
 #Get the information of your AKS
 az aks show \
@@ -93,9 +114,9 @@ kubectl create secret docker-registry acr-secret \
     --docker-email=superman@heroes.com
 ```
 
-## Commands for managing your pods and services
+## Commands for deploying, interacting and managing your pods and services
 
-### General commands for managing your pods and services
+### General commands for interacting and managing your pods and services
 
 ```
 #List the pods
@@ -204,9 +225,9 @@ az aks remove-connector \
 ## Notes
 
 - AKS is still in preview, not for Production workload yet.
-- AKS is managing the master nodes of your Kubernetes cluster, you have commands to interact with and you won't pay for the resources behind the scenes, just for your agent nodes resources.
+- AKS is managing the master nodes of your Kubernetes cluster, you have commands to interact with and you won't pay for the resources behind the scenes, you just have to pay for your agent nodes resources.
 - Kubernetes looks to be THE Container orchestrator the industry and the communities are investing on.
-- The ACI Connector ([Virtual Kubelet](https://github.com/virtual-kubelet/virtual-kubelet)) for AKS is really promising, it is bringing the serverless concept for Kubernetes nodes.
+- The ACI Connector ([Virtual Kubelet](https://github.com/virtual-kubelet/virtual-kubelet)) for AKS is really promising, it's bringing the serverless concept for Kubernetes nodes.
 
 ## Resources
 
