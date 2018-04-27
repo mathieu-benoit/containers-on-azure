@@ -1,4 +1,4 @@
-# Deploy a Docker container on Azure App Service for Containers (AASC)
+# Play with Azure App Service for Containers (AASC)
 
 ## Commands
 

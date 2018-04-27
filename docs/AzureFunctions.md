@@ -1,4 +1,4 @@
-# Deploy a Docker container on Azure Functions (AFA)
+# Play with Azure Functions (AFA)
 
 ## Commands
 

@@ -1,4 +1,4 @@
-# Deploy a Docker container on Azure Managed Kubernetes (AKS)
+# Play with Azure Managed Kubernetes (AKS)
 
 ```
 #The following variables will be used within the scope of the commands illustrated below:
@@ -47,7 +47,7 @@ az group deployment operation list \
   -n <deployment-name> \
   --query '[].{resource:properties.targetResource.resourceType}' \
   -o table
-#To see the Azure resources actually deployed for your AKS agent nodes
+#To see the deployment entries history of your AKS agent nodes resource group auto-created when you provisioned 
 az group deployment operation list \
   -g MC_$RG_$AKS_$LOC \
   -n <deployment-name> \

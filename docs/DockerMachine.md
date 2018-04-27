@@ -1,6 +1,6 @@
-# Setup a Docker Machine on Azure Linux VM
+# Setup a Docker Machine
 
-## Commands
+## Azure Linux Docker Machine
 ```
 #The following variables will be used within the scope of the commands illustrated below:
 RG=<your-resource-group-name>
@@ -41,15 +41,9 @@ az vm start \
 docker-machine regenerate-certs $VM
 ```
 
-## Other alternatives
-
-### Create an Azure Linux VM (Ubuntu) with the Docker extension
+## Azure Linux VM (Ubuntu) with the Docker extension
 
 ```
-#The following variables will be used within the scope of the commands illustrated below:
-RG=<your-resource-group-name>
-VM=<your-docker-machine-name>
-
 #Create the UbuntuLTS VM
 az vm create \
   -n $VM \
@@ -75,13 +69,9 @@ az vm open-port \
 ssh <your-username>:<machine-ip>
 ```
 
-## Create an Azure Windows Server with Containers VM
+## Azure Windows Server VM with Containers
 
 ```
-#The following variables will be used within the scope of the commands illustrated below:
-RG=<your-resource-group-name>
-VM=<your-docker-machine-name>
-
 #Create the WindowsServer with Containers VM
 az vm create \
   -n $NAME \

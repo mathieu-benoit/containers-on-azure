@@ -1,4 +1,4 @@
-# Deploy a Docker container on Azure Container Instance (ACI)
+# Play with Azure Container Instance (ACI)
 
 ## Commands
 

@@ -1,4 +1,4 @@
-# Create an Azure Container Registry (ACR)
+# Play with Azure Container Registry (ACR)
 
 ## Commands
 

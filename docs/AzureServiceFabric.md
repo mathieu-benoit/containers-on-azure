@@ -1,4 +1,4 @@
-# Deploy a Docker container on Azure Service Fabric (ASF)
+# Play with Azure Service Fabric (ASF)
 
 ## Commands
 
@@ -15,3 +15,4 @@ TODO
 - Other labs:
   - https://github.com/Microsoft/OpenSourceLabs/tree/master/ApplicationModernization/Modules/ContainersOnServiceFabric
   - https://github.com/paolosalvatori/service-fabric-acs-kubernetes-multi-container-app
+  - https://github.com/dcasati/sf-on-linux
