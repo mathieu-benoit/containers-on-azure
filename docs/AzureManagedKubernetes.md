@@ -161,14 +161,15 @@ kubectl describe svc <svc-name>
 kubectl get deploy
 
 #Get the information for a specific deployment
-kubectl describe deploy <deployment-name>
+DEPLOY_NAME=<deployment-name>
+kubectl describe deploy $DEPLOY_NAME
 
 #Scale pods
-kubectl scale --replicas=3 deployment/<deployment-name>
+kubectl scale --replicas=3 deployment/$DEPLOY_NAME
 
 #Set Autoscale
 #Note: you need to setup resources:requests/cpu before
-kubectl autoscale deployment <deployment-name> --cpu-percent=50 --min=3 --max=10
+kubectl autoscale deployment $DEPLOY_NAME --cpu-percent=50 --min=3 --max=10
 #You could see the status of the autoscaler:
 kubectl get hpa
 
@@ -183,14 +184,14 @@ kubectl delete pod <pod-name>
 kubectl delete svc <svc-name>
 
 #Delete a deployment
-kubectl delete deploy <deployment-name>
+kubectl delete deploy $DEPLOY_NAME
 ```
 
 ### Commands for managing deployment by "kubectl run/set" commands
 
 ```
 #Run a Docker image in the Kubernetes cluster
-kubectl run <deployment-name> \
+kubectl run $DEPLOY_NAME \
   --image $IMG \
   --port 80 \
   --env CONTAINER_HOST=AKS
@@ -198,33 +199,34 @@ kubectl run <deployment-name> \
 #Note: after running this command you should see associated entries with "kubectl get pods" and "kubectl get deploy"
 
 #Expose the instance to the world via Azure Load Balancer (this will take a few minutes)
-kubectl expose deployment <deployment-name> \
+kubectl expose deployment $DEPLOY_NAME \
   --port 80 \
   --type LoadBalancer
 
 #Watch the service to get the external IP as it's provisioned
-kubectl get svc <deployment-name> -w
+kubectl get svc $DEPLOY_NAME -w
 
 #Edit the deployment deployed
-kubectl edit deploy <deployment-name>
+kubectl edit deploy $DEPLOY_NAME
 
 #Edit the service deployed
-kubectl edit svc <deployment-name>
+kubectl edit svc $DEPLOY_NAME
 
 #Set resources cpu/memory limits/requests for all containers of a specific deployment
-kubectl set resources deployment <deployment-name> \
+kubectl set resources deployment $DEPLOY_NAME \
   --limits cpu=200m,memory=512Mi \
   --requests cpu=100m,memory=256Mi
 #Note: you could add -c <container-name> for setting these resources just on a specific container
 
 #Set environment variables
-kubectl set env deployment/<deployment-name> MY_ENV=MY_VALUE
+kubectl set env deployment/$DEPLOY_NAME MY_ENV=MY_VALUE
 
 #List environment variables 
-kubectl set env deployment/<deployment-name> --list
+kubectl set env deployment/$DEPLOY_NAME --list
 
 #Update a Container image
-kubectl set image deployment/<deployment-name> <container-image>=<container-image>:<new-tag>
+#Important note: current pod(s) associated to deployment/$DEPLOY_NAME will be removed and new associated pod(s) will be created.
+kubectl set image deployment/$DEPLOY_NAME <container-image>=<container-image>:<new-tag>
 ```
 
 ### Commands for managing deployments by YAML file
@@ -232,6 +234,7 @@ kubectl set image deployment/<deployment-name> <container-image>=<container-imag
 ```
 #Create/Update a deployment by applying aks-deploy.yml (this will take a few minutes, especially for the LoadBalancer creation)
 #Rk: you could use "create" instead of "apply", but "apply" will perform a "create or update".
+#Important note: current pod(s) associated to this deployment will be removed and new associated pod(s) will be created.
 kubectl apply \
     -f aks-deploy.yml
 
