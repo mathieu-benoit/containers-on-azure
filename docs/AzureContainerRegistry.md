@@ -28,6 +28,11 @@ az acr show \
     -n $ACR \
     --query loginServer
 
+#Get your ACR's username
+az acr credential show \
+    -n $ACR \
+    --query "username"
+
 #Get your ACR's password
 az acr credential show \
     -n $ACR \
@@ -53,3 +58,4 @@ az acr repository show-tags \
 - [ACR service documentation](https://docs.microsoft.com/azure/container-registry/)
 - [ACR pricing](https://azure.microsoft.com/pricing/details/container-registry/)
 - [ACR CLI 2.0 documentation](https://docs.microsoft.com/cli/azure/acr)
+- [ACR Best practice](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-best-practices)
