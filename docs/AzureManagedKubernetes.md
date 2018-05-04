@@ -289,6 +289,7 @@ az aks remove-connector \
 - [The Illustrated Children's Guide to Kubernetes](https://www.youtube.com/watch?v=4ht22ReBjno)
 - [Why should I care about Kubernetes, Docker, and Container Orchestration?](https://www.hanselman.com/blog/WhyShouldICareAboutKubernetesDockerAndContainerOrchestration.aspx)
 - [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+- [Kubernetes Client Libraries](https://kubernetes.io/docs/reference/client-libraries/)
 - Helm Charts
   - [Kubernetes - Helm Charts](https://github.com/kubernetes/charts)
   - [Azure Samples - Helm Charts](https://github.com/Azure-Samples/helm-charts)
