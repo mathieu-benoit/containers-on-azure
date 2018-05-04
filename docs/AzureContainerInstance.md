@@ -86,7 +86,7 @@ az container delete \
 - Make sure you understand the [ACI's restart policy setting](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-restart-policy)
 - ACI doesn't provide for now a mechanism to redeploy/update a container instance - (see associated user voice)[https://feedback.azure.com/forums/602224-azure-container-instances/suggestions/32175820-allow-an-aci-container-to-update-itself-when-the-i] - you should recreate your container/container group with a new IP address
 - ACI doesn't support for now scale out capabilities (i.e. increasing the number of instances for one Container Instance) but you could create more container group for this... For scale up, you could update the CPU/memory resource of existing Container Group but not yet by CLI/PowerShell but only by ARM Templates.
-- [ACI Container Groups](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-container-groups) is like the Pod concept for Kubernetes, only available on Linux for now. Rk: you could deploy multiple Containers/Instances in one Container Group only by ARM Templates today, not by CLI nor PowerShell.
+- [ACI Container Groups](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-container-groups) is like the Pod concept for Kubernetes. Rk: you could deploy multiple Containers/Instances in one Container Group (only on Linux for now) only by ARM Templates today, not by CLI nor PowerShell.
 - You could [mount an Azure file, emptyDir, rigRepo or secret share with ACI](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-volume-azure-files)
 
 ## Resources
