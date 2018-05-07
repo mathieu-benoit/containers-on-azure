@@ -1,4 +1,12 @@
-# Play with Azure Managed Kubernetes (AKS)
+# Play with Azure Kubernetes Service (AKS)
+
+- [Managing your Kubernetes cluster](#commands-for-managing-your-kubernetes-cluster)
+- [Interacting and managing your pods and services](#interacting-and-managing-your-pods-and-services)
+- [Managing deployments by "kubectl run/set" commands](#managing-deployments-by-kubectl-runset-commands)
+- [Managing deployments by YAML file](#managing-deployments-by-yaml-file)
+- [Managing deployments by ACI Connector](#managing-deployments-by-aci-connector)
+- [Notes](#notes)
+- [Resources](#resources)
 
 ```
 #The following variables will be used within the scope of the commands illustrated below:
@@ -8,7 +16,7 @@ LOC=<your-aks-location>
 IMG=<your-docker-image-name>
 ```
 
-## Commands for managing your Kubernetes cluster
+## Managing your Kubernetes cluster
 
 ```
 #Create the resource group for the services for your AKS
@@ -117,6 +125,7 @@ az aks upgrade \
     --kubernetes-version 1.8.7
 
 #Setup AKS with access to Azure Container Registry
+#Note: see [Azure Container Registry](./AzureContainerRegistry.md) tutorial to know how to retrieve $ACR_SERVER, $ACR_USER and $ACR_PWD values.
 kubectl create secret docker-registry acr-secret \
     --docker-server=$ACR_SERVER \
     --docker-username=$ACR_USER \
@@ -124,15 +133,14 @@ kubectl create secret docker-registry acr-secret \
     --docker-email=superman@heroes.com
 ```
 
-## Commands for deploying, interacting and managing your pods and services
-
-### General commands for interacting and managing your pods and services
+## Interacting and managing your pods and services
 
 ```
 #List the pods
 #Rk: add a " | grep XXX" at the end of this command to only list the pods containing XXX in the name
-#Other rk: "kubectl get pod" works as well for the same purpose
+#Other rk: "kubectl get pod" and "kubectl get po" work as well for the same purpose
 kubectl get pods
+#Note: you could add '-o wide' to have more info like for example the node on wich each pod is running.
 
 #Get the information for a specific pod
 kubectl describe pod <pod-name>
@@ -187,7 +195,7 @@ kubectl delete svc <svc-name>
 kubectl delete deploy $DEPLOY_NAME
 ```
 
-### Commands for managing deployment by "kubectl run/set" commands
+## Managing deployments by "kubectl run/set" commands
 
 ```
 #Run a Docker image in the Kubernetes cluster
@@ -229,7 +237,7 @@ kubectl set env deployment/$DEPLOY_NAME --list
 kubectl set image deployment/$DEPLOY_NAME <container-image>=<container-image>:<new-tag>
 ```
 
-### Commands for managing deployments by YAML file
+## Managing deployments by YAML file
 
 ```
 #Create/Update a deployment by applying aks-deploy.yml (this will take a few minutes, especially for the LoadBalancer creation)
@@ -241,7 +249,7 @@ kubectl apply \
 #Note: after running this command you should see associated entries with "kubectl get pods", "kubectl get deploy" and "kubectl get svc".
 ```
 
-### Commands for managing deployments by ACI Connector
+## Managing deployments by ACI Connector
 
 ```
 #Initialize Helm and Tiller
@@ -256,11 +264,12 @@ az aks install-connector \
 #Optional parameters and default values for "az aks install-connector":
 #--os-type Linux
 
+#Note: after running this command you should see associated entries with "kubectl get pods" and "kubectl get nodes".
+
 #Deploy the aci-connector.yml
 kubectl apply -f ../src/aci-connector.yml
 
-#Check the pod created
-kubectl get pods -o wide
+#Note: after running this command you should see associated entries with "kubectl get pods".
 
 #Remove an ACI Connector node
 az aks remove-connector \
@@ -274,7 +283,7 @@ az aks remove-connector \
 - AKS is still in preview, not for Production workload yet.
 - AKS is managing the master nodes of your Kubernetes cluster, you have commands to interact with and you won't pay for the resources behind the scenes, you just have to pay for your agent nodes resources.
 - Kubernetes looks to be THE Container orchestrator the industry and the communities are investing on.
-- The ACI Connector ([Virtual Kubelet](https://github.com/virtual-kubelet/virtual-kubelet)) for AKS is really promising, it's bringing the serverless concept for Kubernetes nodes.
+- The ACI Connector ([Virtual Kubelet](https://github.com/virtual-kubelet/virtual-kubelet)) for AKS is really promising, it's bringing the serverless concept for Containers.
 
 ## Resources
 
@@ -303,10 +312,3 @@ az aks remove-connector \
   - https://github.com/Microsoft/OpenSourceLabs/tree/master/ApplicationModernization/Modules/ContainersOnACSKubernetes
   - https://anthonychu.ca/post/windows-containers-aci-connector-kubernetes/
   - https://anthonychu.ca/post/hybrid-kubernetes-linux-windows-cluster-easy-steps/
-
-## TODO
-
-- Add a section about [Using OpenFaaS on AKS](https://docs.microsoft.com/en-us/azure/aks/openfaas)
-- Add a section about [Kubernetes dashboard](https://docs.microsoft.com/en-us/azure/aks/kubernetes-dashboard)
-- Add a section about [HTTPS Ingress](https://docs.microsoft.com/en-us/azure/aks/ingress)
-- Add a section about [Persistent volumes with Azure files](https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv)
