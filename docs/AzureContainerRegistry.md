@@ -92,7 +92,7 @@ az acr build-task list-builds \
 
 - ACR is a great alternative to DockerHub for your private and enterprise containers registries
 - ACR has Geo-replication capabilities (in Preview) like explained [here](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-geo-replication)
-- ACR has Build capabilities (in Preview) like explained [here](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-build-overview), you could furthermore easily [setup a base images update build].(https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tutorial-base-image-update)
+- ACR has Build capabilities (in Preview) like explained [here](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-build-overview), you could furthermore easily [setup a base images update build](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tutorial-base-image-update).
 
 ## Resources
 
