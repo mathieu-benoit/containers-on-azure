@@ -93,8 +93,6 @@ az appservice plan delete \
 - You could leverage key and managed App Service's features acting as an interesting orechestrator: Scale out and up, Slot, Ssl configuration, etc.
 - You could configure SSH through the Kudu/SCM site [like explained here](https://docs.microsoft.com/azure/app-service/containers/tutorial-custom-docker-image#connect-to-web-app-for-containers-using-ssh).
 - You could configure a web hook for continuous deployment [like explained here](https://docs.microsoft.com/azure/app-service/containers/app-service-linux-ci-cd).
-- There is some current limitations that should be mitigated in the near future:
-  - Isolated or Premium SKU tier are not supported yet
 
 ## Resources
 

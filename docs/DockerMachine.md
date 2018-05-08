@@ -1,5 +1,11 @@
 # Setup a Docker Machine
 
+- [Azure Linux Docker Machine](#azure-linux-docker-machine)
+- [Azure Linux VM (Ubuntu) with the Docker extension](#azure-linux-vm-ubuntu-with-the-docker-extension)
+- [Azure Windows Server VM with Containers](#azure-windows-server-vm-with-containers)
+- [Azure Container Registry (ACR) Build](#azure-container-registry-acr-build)
+- [Resources](#resources)
+
 ```
 #The following variables will be used within the scope of the commands illustrated below:
 RG=<your-resource-group-name>
@@ -86,8 +92,12 @@ az vm open-port \
   -g $RG \
   --port 25575
 
-# + to RDP
+# + do RDP
 ```
+
+## Azure Container Registry (ACR) Build
+
+If you don't want to setup a Docker machine like illustrated above, you could leverage the ACR Build feature explained in the associated section [here](./AzureContainerRegistry.md).
 
 ## Resources
 
