@@ -1,4 +1,4 @@
-# My Containers on Azure experiment, playground and sandbox ;)
+# My Containers on Azure experiment, playground and sandbox
 
 This repository centralizes different Docker and Azure CLI 2.0 commands to manage your Docker containers on Azure via the Azure Cloud Shell. No order, just pick and choose what you need and adapt them for your needs:
 
@@ -10,6 +10,8 @@ This repository centralizes different Docker and Azure CLI 2.0 commands to manag
 - [Play with Azure Kubernetes Service (AKS)](./docs/AzureManagedKubernetes.md)
 - [Play with Azure Service Fabric (ASF)](./docs/AzureServiceFabric.md)
 - [Play with Azure Functions](./docs/AzureFunctions.md)
+- Use cases:
+  - [VSTS Agent on AKS](./docs/SetupLinuxVSTSAgentOnAKS.md)
 
 ## Resources
 
