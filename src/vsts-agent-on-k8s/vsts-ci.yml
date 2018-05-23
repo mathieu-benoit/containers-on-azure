@@ -1,0 +1,7 @@
+resources:
+- repo: self
+queue:
+  name: Default
+steps:
+- task: Docker@0
+  displayName: Build an image
