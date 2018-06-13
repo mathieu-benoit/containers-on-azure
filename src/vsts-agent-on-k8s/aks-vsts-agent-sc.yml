@@ -9,4 +9,4 @@ mountOptions:
   - uid=1000
   - gid=1000
 parameters:
-  storageAccount: linux-vsts-agent-storage
+  storageAccount: linuxvstsagentstorage
