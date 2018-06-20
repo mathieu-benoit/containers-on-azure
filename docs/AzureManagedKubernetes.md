@@ -296,6 +296,7 @@ az aks remove-connector \
 - [Quotas and regional limits](https://docs.microsoft.com/en-us/azure/aks/container-service-quotas)
 - [Free eBook: Kubernetes objects on Microsoft Azure](https://blogs.msdn.microsoft.com/azurecat/2018/01/22/new-ebook-kubernetes-objects-on-microsoft-azure/)
 - [The Illustrated Children's Guide to Kubernetes](https://www.youtube.com/watch?v=4ht22ReBjno)
+- [LinuxFoundationX: LFS158x - Introduction to Kubernetes](https://courses.edx.org/courses/course-v1:LinuxFoundationX+LFS158x+1T2018/course/)
 - [Why should I care about Kubernetes, Docker, and Container Orchestration?](https://www.hanselman.com/blog/WhyShouldICareAboutKubernetesDockerAndContainerOrchestration.aspx)
 - [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 - [Kubernetes Client Libraries](https://kubernetes.io/docs/reference/client-libraries/)
