@@ -147,7 +147,7 @@ ACR_ID=$(az acr show --name $ACR --resource-group $ACR_RG --query "id" --output 
 az role assignment create --assignee $CLIENT_ID --role Reader --scope $ACR_ID
 ```
 
-### With K8S `Secret` with `Service Principal`
+### With K8S `Secret` and `Service Principal`
 
 *Note: this approach has the advantage to leverage both the K8S `Secret` to be more generic and the `Service Principal` with role access to more secure and flexible.*
 
@@ -164,7 +164,7 @@ kubectl create secret docker-registry acr-secret \
     --docker-email=superman@heroes.com
 ```
 
-### With K8S `Secret` with `Service Principal`
+### With K8S `Secret` but without `Service Principal`
 
 This approach could be accomplish if for example you don't have the proper rights within the Azure subscription to interact with the `Service Princial` illustrated above and you would like instead use the ACR's admin login.
 
