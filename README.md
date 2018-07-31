@@ -11,7 +11,8 @@ This repository centralizes different Docker and Azure CLI 2.0 commands to manag
 - [Play with Azure Service Fabric (ASF)](./docs/AzureServiceFabric.md)
 - [Play with Azure Functions](./docs/AzureFunctions.md)
 - Use cases:
-  - [VSTS Agent on AKS](./docs/SetupLinuxVSTSAgentOnAKS.md)
+  - [VSTS Linux Agent on AKS](https://alwaysupalwayson.blogspot.com/2018/05/host-your-private-vsts-linux-agent-in.html)
+  - [SQL Server on Linux Docker on AKS and OpenShift](https://alwaysupalwayson.blogspot.com/2018/06/enhancing-devops-with-sql-server-on.html)
 
 ## Resources
 
