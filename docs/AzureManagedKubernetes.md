@@ -1,6 +1,7 @@
 # Play with Azure Kubernetes Service (AKS)
 
 - [Managing your Kubernetes cluster](#commands-for-managing-your-kubernetes-cluster)
+- [Container Registry access setup](#container-registry-access-setup)
 - [Interacting and managing your pods and services](#interacting-and-managing-your-pods-and-services)
 - [Managing deployments by "kubectl run/set" commands](#managing-deployments-by-kubectl-runset-commands)
 - [Managing deployments by YAML file](#managing-deployments-by-yaml-file)
@@ -39,10 +40,11 @@ az aks create \
 #Optional parameters and default values for "az aks create":
 #--no-wait
 #--node-count 3
-#--kubernetes-version 1.8.11
+#--kubernetes-version 1.10.5
 #--admin-username azureuser
 #--ssh-key-value ~.sshid_rsa.pub
-#--service-principal --> see details [here](https://docs.microsoft.com/en-us/azure/aks/kubernetes-service-principal).
+#--service-principal --> see details [here](https://docs.microsoft.com/en-us/azure/aks/kubernetes-service-principal)
+#--enable-addons http_application_routing --> see details [here](https://docs.microsoft.com/en-us/azure/aks/http-application-routing)
 
 #To see the deployment entries history of your resource group and grab the deployment name:
 az group deployment list \
@@ -122,10 +124,54 @@ az aks get-upgrades \
 az aks upgrade \
     -n $AKS \
     -g $RG \
-    --kubernetes-version 1.8.7
+    --kubernetes-version 1.10.5
+```
 
-#Setup AKS with access to Azure Container Registry
-#Note: see [Azure Container Registry](./AzureContainerRegistry.md) tutorial to know how to retrieve $ACR_SERVER, $ACR_USER and $ACR_PWD values.
+## Container Registry access setup
+
+Based on the official documentation about [how to setup the access to your Container Registry from your AKS cluster](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-aks), we will illustrate below 3 ways to accomplish that, according your needs and context.
+
+```
+#The following variables will be used within the scope of the commands illustrated below:
+ACR_RG=<acr-resource-group-name>
+ACR=<acr-name>
+```
+
+### Without K8S `Secret`
+
+You could just run the commands below to grant the cluster's service principal access to the container registry.
+
+```
+CLIENT_ID=$(az aks show -g $RG -n $AKS --query "servicePrincipalProfile.clientId" --output tsv)
+ACR_ID=$(az acr show --name $ACR --resource-group $ACR_RG --query "id" --output tsv)
+az role assignment create --assignee $CLIENT_ID --role Reader --scope $ACR_ID
+```
+
+### With K8S `Secret` with `Service Principal`
+
+*Note: this approach has the advantage to leverage both the K8S `Secret` to be more generic and the `Service Principal` with role access to more secure and flexible.*
+
+```
+SERVICE_PRINCIPAL_NAME=acr-service-principal
+ACR_SERVER=$(az acr show -n $ACR --query loginServer --output tsv)
+ACR_REGISTRY_ID=$(az acr show -n $ACR --query id --output tsv)
+SP_PWD=$(az ad sp create-for-rbac --name $SERVICE_PRINCIPAL_NAME --role Reader --scopes $ACR_REGISTRY_ID --query password --output tsv)
+CLIENT_ID=$(az ad sp show --id http://$SERVICE_PRINCIPAL_NAME --query appId --output tsv)
+kubectl create secret docker-registry acr-secret \
+    --docker-server=$ACR_SERVER \
+    --docker-username=$CLIENT_ID \
+    --docker-password=$SP_PWD \
+    --docker-email=superman@heroes.com
+```
+
+### With K8S `Secret` with `Service Principal`
+
+This approach could be accomplish if for example you don't have the proper rights within the Azure subscription to interact with the `Service Princial` illustrated above and you would like instead use the ACR's admin login.
+
+```
+ACR_SERVER=$(az acr show -n $ACR --query loginServer)
+ACR_USER=$(az acr credential show -n $ACR --query "username")
+ACR_PWD=$(az acr credential show -n $ACR --query "passwords[0].value")
 kubectl create secret docker-registry acr-secret \
     --docker-server=$ACR_SERVER \
     --docker-username=$ACR_USER \
@@ -280,7 +326,6 @@ az aks remove-connector \
 
 ## Notes
 
-- AKS is still in preview, not for Production workload yet.
 - AKS is managing the master nodes of your Kubernetes cluster, you have commands to interact with and you won't pay for the resources behind the scenes, you just have to pay for your agent nodes resources.
 - Kubernetes looks to be THE Container orchestrator the industry and the communities are investing on.
 - The ACI Connector ([Virtual Kubelet](https://github.com/virtual-kubelet/virtual-kubelet)) for AKS is really promising, it's bringing the serverless concept for Containers.
