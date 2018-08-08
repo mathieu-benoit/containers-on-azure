@@ -101,3 +101,4 @@ az acr build-task list-builds \
 - [ACR pricing](https://azure.microsoft.com/pricing/details/container-registry/)
 - [ACR CLI 2.0 documentation](https://docs.microsoft.com/cli/azure/acr)
 - [ACR Best practice](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-best-practices)
+- [ACR FAQ](https://github.com/Azure/acr/blob/master/docs/FAQ.md)
