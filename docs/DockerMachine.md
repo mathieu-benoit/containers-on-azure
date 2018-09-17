@@ -24,8 +24,8 @@ az group create \
 docker-machine create \
     --driver azure \
     --azure-subscription-id <your-subscription-id> \
-    --azure-image  "Canonical:UbuntuServer:14.04.5-LTS:latest" \
-    --azure-size "Standard_D2_v2" \
+    --azure-image  "Canonical:UbuntuServer:16.04.5-LTS:latest" \
+    --azure-size "Standard_DS2_v2" \
     --azure-resource-group $RG \
     --azure-location $LOC \
     $VM
